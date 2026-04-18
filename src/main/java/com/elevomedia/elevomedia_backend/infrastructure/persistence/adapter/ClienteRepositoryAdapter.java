@@ -29,4 +29,9 @@ public class ClienteRepositoryAdapter implements ClienteRepository {
     public List<Cliente> listarPorUsuario(Long usuarioId) {
         return repositoryJpa.findByUsuarioId(usuarioId);
     }
+
+    @Override
+    public Optional<Cliente> buscarPorNomeNegocioEUsuarioId(String nomeNegocio, Long usuarioId) {
+        return repositoryJpa.findByNomeNegocioAndUsuarioId(nomeNegocio, usuarioId);
+    }
 }

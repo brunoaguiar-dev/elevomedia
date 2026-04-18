@@ -15,6 +15,11 @@ public class UsuarioRepositoryAdapter implements UsuarioRepository {
     private final UsuarioRepositoryJpa repositoryJpa;
 
     @Override
+    public Optional<Usuario> buscarPorId(Long id) {
+        return repositoryJpa.findById(id);
+    }
+
+    @Override
     public Usuario salvar(Usuario usuario) {
         return repositoryJpa.save(usuario);
     }

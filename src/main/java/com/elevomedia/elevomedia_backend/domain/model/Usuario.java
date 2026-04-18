@@ -1,7 +1,6 @@
 package com.elevomedia.elevomedia_backend.domain.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +36,19 @@ public class Usuario {
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
+
+    public Usuario(Long id) {
+        this.id = id;
+    }
+
+    @PrePersist
+    private void prePersist() {
+        criadoEm = LocalDateTime.now();
+        atualizadoEm = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        atualizadoEm = LocalDateTime.now();
+    }
 }

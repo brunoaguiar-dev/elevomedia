@@ -8,4 +8,6 @@ import java.util.List;
 public interface ClienteRepositoryJpa extends JpaRepository<Cliente, Long> {
 
     List<Cliente> findByUsuarioId(Long usuarioId);
+
+    Optional<Cliente> findByNomeNegocioAndUsuarioId(String nomeNegocio, Long usuarioId);
 }

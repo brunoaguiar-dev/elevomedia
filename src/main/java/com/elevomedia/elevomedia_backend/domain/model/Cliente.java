@@ -81,4 +81,37 @@ public class Cliente {
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
+
+    public void atualizarCom(Cliente dados) {
+        if (dados.getNomeNegocio() != null) this.nomeNegocio = dados.getNomeNegocio();
+        if (dados.getSegmento() != null) this.segmento = dados.getSegmento();
+        if (dados.getCidade() != null) this.cidade = dados.getCidade();
+        if (dados.getEstado() != null) this.estado = dados.getEstado();
+        if (dados.getOQueVende() != null) this.oQueVende = dados.getOQueVende();
+        if (dados.getDiferenciais() != null) this.diferenciais = dados.getDiferenciais();
+        if (dados.getHorarioFuncionamento() != null) this.horarioFuncionamento = dados.getHorarioFuncionamento();
+        if (dados.getPromocoesFixas() != null) this.promocoesFixas = dados.getPromocoesFixas();
+        if (dados.getRedesSociais() != null) this.redesSociais = dados.getRedesSociais();
+        if (dados.getSite() != null) this.site = dados.getSite();
+        if (dados.getQuantidadePostsMes() != null) this.quantidadePostsMes = dados.getQuantidadePostsMes();
+        if (dados.getPublicoFaixaEtaria() != null) this.publicoFaixaEtaria = dados.getPublicoFaixaEtaria();
+        if (dados.getPublicoGenero() != null) this.publicoGenero = dados.getPublicoGenero();
+        if (dados.getPublicoClasseSocial() != null) this.publicoClasseSocial = dados.getPublicoClasseSocial();
+        if (dados.getTomDeVoz() != null) this.tomDeVoz = dados.getTomDeVoz();
+        if (dados.getUsaHumor() != null) this.usaHumor = dados.getUsaHumor();
+        if (dados.getCoresPrincipais() != null) this.coresPrincipais = dados.getCoresPrincipais();
+        if (dados.getEstiloVisual() != null) this.estiloVisual = dados.getEstiloVisual();
+        if (dados.getObservacoesLivres() != null) this.observacoesLivres = dados.getObservacoesLivres();
+    }
+
+    @PrePersist
+    private void prePersist() {
+        criadoEm = LocalDateTime.now();
+        atualizadoEm = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    private void preUpdate() {
+        atualizadoEm = LocalDateTime.now();
+    }
 }

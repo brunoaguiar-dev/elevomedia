@@ -13,5 +13,5 @@ public interface ClienteRepository {
 
     List<Cliente> listarPorUsuario(Long usuarioId);
 
-
+    Optional<Cliente> buscarPorNomeNegocioEUsuarioId(String nomeNegocio, Long usuarioId);
 }
