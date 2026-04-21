@@ -45,6 +45,13 @@ public class PlanejamentoService {
     }
 
     @Transactional
+    public Planejamento atualizar(Long id, String observacoesGeracao) {
+        Planejamento planejamento = buscarPorId(id);
+        planejamento.setObservacoesGeracao(observacoesGeracao);
+        return planejamentoRepository.salvar(planejamento);
+    }
+
+    @Transactional
     public Planejamento atualizarStatus(Long id, String novoStatus) {
         Planejamento planejamento = buscarPorId(id);
         planejamento.setStatus(novoStatus);

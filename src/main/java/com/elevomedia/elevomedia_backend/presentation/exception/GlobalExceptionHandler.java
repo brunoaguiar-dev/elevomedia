@@ -4,10 +4,12 @@ import com.elevomedia.elevomedia_backend.domain.exception.ConflitoException;
 import com.elevomedia.elevomedia_backend.domain.exception.NaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -22,6 +24,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErroResponse> handleConflito(ConflitoException ex) {
         ErroResponse erro = new ErroResponse(409, ex.getMessage(), LocalDateTime.now());
         return ResponseEntity.status(HttpStatus.CONFLICT).body(erro);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErroResponse> handleValidacao(MethodArgumentNotValidException ex) {
+        String mensagem = ex.getBindingResult().getFieldErrors().stream()
+                .map(f -> f.getField() + ": " + f.getDefaultMessage())
+                .collect(Collectors.joining(", "));
+        ErroResponse erro = new ErroResponse(400, mensagem, LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erro);
     }
 
     @ExceptionHandler(Exception.class)
