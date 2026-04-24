@@ -38,6 +38,12 @@ public class SugestaoConteudo {
     @Column(name = "roteiro_video")
     private String roteiroVideo;
 
+    @Column(name = "formato_post")
+    private String formatoPost;
+
+    @Column(name = "instrucao_design")
+    private String instrucaoDesign;
+
     @Column(nullable = false)
     private String status = "SUGERIDO";
 
@@ -48,12 +54,14 @@ public class SugestaoConteudo {
     private LocalDateTime atualizadoEm;
 
     public void atualizarCom(SugestaoConteudo dados) {
+        if (dados.getDataPublicacao() != null) this.dataPublicacao = dados.getDataPublicacao();
         if (dados.getTituloData() != null) this.tituloData = dados.getTituloData();
+        if (dados.getFormatoPost() != null) this.formatoPost = dados.getFormatoPost();
         if (dados.getLegenda() != null) this.legenda = dados.getLegenda();
         if (dados.getHashtags() != null) this.hashtags = dados.getHashtags();
         if (dados.getChamadaAcao() != null) this.chamadaAcao = dados.getChamadaAcao();
         if (dados.getRoteiroVideo() != null) this.roteiroVideo = dados.getRoteiroVideo();
-        if (dados.getDataPublicacao() != null) this.dataPublicacao = dados.getDataPublicacao();
+        if (dados.getInstrucaoDesign() != null) this.instrucaoDesign = dados.getInstrucaoDesign();
     }
 
     @PrePersist

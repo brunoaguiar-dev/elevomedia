@@ -46,6 +46,12 @@ public class SugestaoConteudoService {
     }
 
     @Transactional
+    public void deletar(Long id) {
+        buscarPorId(id);
+        sugestaoConteudoRepository.deletarPorId(id);
+    }
+
+    @Transactional
     public void deletarPorPlanejamento(Long planejamentoId) {
         sugestaoConteudoRepository.deletarPorPlanejamento(planejamentoId);
     }

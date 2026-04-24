@@ -13,5 +13,7 @@ public interface SugestaoConteudoRepository {
 
     List<SugestaoConteudo> listarPorPlanejamento(Long planejamentoId);
 
+    void deletarPorId(Long id);
+
     void deletarPorPlanejamento(Long planejamentoId);
 }

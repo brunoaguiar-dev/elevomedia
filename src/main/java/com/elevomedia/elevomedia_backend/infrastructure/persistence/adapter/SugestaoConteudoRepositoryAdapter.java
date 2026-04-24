@@ -31,6 +31,11 @@ public class SugestaoConteudoRepositoryAdapter implements SugestaoConteudoReposi
     }
 
     @Override
+    public void deletarPorId(Long id) {
+        repositoryJpa.deleteById(id);
+    }
+
+    @Override
     public void deletarPorPlanejamento(Long planejamentoId) {
         repositoryJpa.deleteByPlanejamentoId(planejamentoId);
     }
