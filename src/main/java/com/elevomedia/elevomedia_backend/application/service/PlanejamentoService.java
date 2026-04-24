@@ -18,16 +18,11 @@ public class PlanejamentoService {
     private final PlanejamentoRepository planejamentoRepository;
 
     @Transactional
-    public Planejamento criar(Long clienteId, Integer mes, Integer ano) {
-        planejamentoRepository.buscarPorClienteMesAno(clienteId, mes, ano)
+    public Planejamento criar(Long clienteId, Planejamento dados) {
+        planejamentoRepository.buscarPorClienteMesAno(clienteId, dados.getMes(), dados.getAno())
                 .ifPresent(p -> { throw new ConflitoException("Já existe um planejamento para este cliente neste mês/ano."); });
-
-        Planejamento planejamento = new Planejamento();
-        planejamento.setCliente(new Cliente(clienteId));
-        planejamento.setMes(mes);
-        planejamento.setAno(ano);
-
-        return planejamentoRepository.salvar(planejamento);
+        dados.setCliente(new Cliente(clienteId));
+        return planejamentoRepository.salvar(dados);
     }
 
     public Planejamento buscarPorId(Long id) {
