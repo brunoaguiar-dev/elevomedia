@@ -22,11 +22,13 @@ public class SugestaoConteudoService {
         return sugestaoConteudoRepository.salvar(sugestao);
     }
 
+    @Transactional(readOnly = true)
     public SugestaoConteudo buscarPorId(Long id) {
         return sugestaoConteudoRepository.buscarPorId(id)
                 .orElseThrow(() -> new NaoEncontradoException("Sugestão de conteúdo não encontrada."));
     }
 
+    @Transactional(readOnly = true)
     public List<SugestaoConteudo> listarPorPlanejamento(Long planejamentoId) {
         return sugestaoConteudoRepository.listarPorPlanejamento(planejamentoId);
     }

@@ -37,8 +37,10 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ClienteResponseDTO>> listarPorUsuario(@RequestParam Long usuarioId) {
-        var clientes = clienteService.listarPorUsuario(usuarioId);
+    public ResponseEntity<List<ClienteResponseDTO>> listarPorUsuario(
+            @RequestParam Long usuarioId,
+            @RequestParam(required = false) Boolean ativo) {
+        var clientes = clienteService.listarPorUsuario(usuarioId, ativo);
         var response = clientes.stream()
                 .map(clienteMapper::toResponse)
                 .toList();
@@ -59,5 +61,12 @@ public class ClienteController {
     public ResponseEntity<Void> desativar(@PathVariable Long id) {
         clienteService.desativar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{id}/reativar")
+    public ResponseEntity<ClienteResponseDTO> reativar(@PathVariable Long id) {
+        clienteService.reativar(id);
+        var cliente = clienteService.buscarPorId(id);
+        return ResponseEntity.ok(clienteMapper.toResponse(cliente));
     }
 }

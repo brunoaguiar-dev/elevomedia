@@ -25,15 +25,18 @@ public class PlanejamentoService {
         return planejamentoRepository.salvar(dados);
     }
 
+    @Transactional(readOnly = true)
     public Planejamento buscarPorId(Long id) {
         return planejamentoRepository.buscarPorId(id)
                 .orElseThrow(() -> new NaoEncontradoException("Planejamento não encontrado."));
     }
 
+    @Transactional(readOnly = true)
     public List<Planejamento> listarPorCliente(Long clienteId) {
         return planejamentoRepository.listarPorCliente(clienteId);
     }
 
+    @Transactional(readOnly = true)
     public Planejamento buscarPorClienteMesAno(Long clienteId, Integer mes, Integer ano) {
         return planejamentoRepository.buscarPorClienteMesAno(clienteId, mes, ano)
                 .orElseThrow(() -> new NaoEncontradoException("Planejamento não encontrado para este cliente neste mês/ano."));

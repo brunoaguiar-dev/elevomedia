@@ -28,13 +28,18 @@ public class ClienteService {
         return clienteRepository.salvar(cliente);
     }
 
+    @Transactional(readOnly = true)
     public Cliente buscarPorId(Long id) {
         return clienteRepository.buscarPorId(id)
                 .orElseThrow(() -> new NaoEncontradoException("Cliente não encontrado."));
     }
 
-    public List<Cliente> listarPorUsuario(Long usuarioId) {
-        return clienteRepository.listarPorUsuario(usuarioId);
+    @Transactional(readOnly = true)
+    public List<Cliente> listarPorUsuario(Long usuarioId, Boolean ativo) {
+        boolean filtro = ativo != null ? ativo : true;
+        return clienteRepository.listarPorUsuario(usuarioId).stream()
+                .filter(c -> c.getAtivo().equals(filtro))
+                .toList();
     }
 
     @Transactional
@@ -48,6 +53,13 @@ public class ClienteService {
     public void desativar(Long id) {
         Cliente cliente = buscarPorId(id);
         cliente.setAtivo(false);
+        clienteRepository.salvar(cliente);
+    }
+
+    @Transactional
+    public void reativar(Long id) {
+        Cliente cliente = buscarPorId(id);
+        cliente.setAtivo(true);
         clienteRepository.salvar(cliente);
     }
 }
